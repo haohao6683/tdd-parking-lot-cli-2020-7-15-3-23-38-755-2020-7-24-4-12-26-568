@@ -7,6 +7,9 @@ import com.oocl.cultivation.Ticket;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -38,5 +41,23 @@ public class ParkingBoyTest {
 
         //then
         assertEquals(car, actualCar);
+    }
+
+    
+    @Test
+    void should_return_no_ticket_when_parkingLot_given_no_position() {
+        //given
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+
+        //when
+        Car car = new Car();
+        for(int i=1; i<=10; i++){
+            parkingBoy.park(car);
+        }
+        Ticket ticket = parkingBoy.park(car);
+
+        //then
+        assertTrue(ticket == null);
     }
 }
