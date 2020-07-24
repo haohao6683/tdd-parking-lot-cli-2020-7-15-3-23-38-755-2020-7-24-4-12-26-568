@@ -6,8 +6,8 @@ import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.Ticket;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingBoyTest {
     private ParkingBoy parkingBoy;
@@ -54,22 +54,22 @@ public class ParkingBoyTest {
         Car carB = parkingBoy.fetch(ticketB);
 
         //then
-        assertTrue(carA != carB);
+        assertNotEquals(carA, carB);
     }
 
-//    @Test
-//    void should_return_no_car_when_parkingBoy_given_the_wrong_ticket() {
-//        //given
-//        Ticket ticketA = parkingBoy.park(new Car());
-//        Ticket ticketB = parkingBoy.park(new Car());
-//
-//        //when
-//        Car carA = parkingBoy.fetch(ticketA);
-//        Car carB = parkingBoy.fetch(ticketB);
-//
-//        //then
-//        assertTrue(carA != carB);
-//    }
+    @Test
+    void should_return_no_car_when_parkingBoy_given_the_wrong_ticket() {
+        //given
+        Ticket ticketA = parkingBoy.park(new Car());
+
+        //when
+        Car carA = parkingBoy.fetch(ticketA);
+        Car carB = parkingBoy.fetch(new Ticket());
+        Car carC = parkingBoy.fetch(null);
+
+        //then
+        assertTrue(!carA.equals(carB) && !carA.equals(carC));
+    }
 
     @Test
     void should_return_no_ticket_when_given_parkingLot_is_full() {
