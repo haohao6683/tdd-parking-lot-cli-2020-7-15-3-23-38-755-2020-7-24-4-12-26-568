@@ -4,17 +4,23 @@ import com.oocl.cultivation.Car;
 import com.oocl.cultivation.ParkingBoy;
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.Ticket;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParkingBoyTest {
+    private ParkingBoy parkingBoy;
+
+    @BeforeEach
+    public void setup() {
+        ParkingLot parkingLot = new ParkingLot();
+        parkingBoy = new ParkingBoy(parkingLot);
+    }
+
     @Test
     void should_return_ticket_when_customer_given_a_car_to_parkingBoy() {
         //given
-        ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
         Car car = new Car();
 
         //when
@@ -28,8 +34,6 @@ public class ParkingBoyTest {
     void should_return_car_when_customer_given_a_ticket_to_parkingBoy() {
         //given
         Car car = new Car();
-        ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
         Ticket ticket = parkingBoy.park(car);
 
         //when
@@ -42,8 +46,6 @@ public class ParkingBoyTest {
     @Test
     void should_return_correct_car_when_parkingBoy_given_the_corresponding_ticket() {
         //given
-        ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
         Ticket ticketA = parkingBoy.park(new Car());
         Ticket ticketB = parkingBoy.park(new Car());
 
@@ -55,17 +57,28 @@ public class ParkingBoyTest {
         assertTrue(carA != carB);
     }
 
-    @Test
-    void should_return_no_ticket_when_parkingLot_given_no_position() {
-        //given
-        ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+//    @Test
+//    void should_return_no_car_when_parkingBoy_given_the_wrong_ticket() {
+//        //given
+//        Ticket ticketA = parkingBoy.park(new Car());
+//        Ticket ticketB = parkingBoy.park(new Car());
+//
+//        //when
+//        Car carA = parkingBoy.fetch(ticketA);
+//        Car carB = parkingBoy.fetch(ticketB);
+//
+//        //then
+//        assertTrue(carA != carB);
+//    }
 
+    @Test
+    void should_return_no_ticket_when_given_parkingLot_is_full() {
+        //given
+        for(int i = 1; i <= 10; i++){
+            parkingBoy.park(new Car());
+        }
         //when
         Car car = new Car();
-        for(int i=1; i<=10; i++){
-            parkingBoy.park(car);
-        }
         Ticket ticket = parkingBoy.park(car);
 
         //then
