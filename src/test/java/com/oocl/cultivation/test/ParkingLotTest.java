@@ -9,16 +9,15 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ParkingBoyTest {
+public class ParkingLotTest {
     @Test
     void should_return_ticket_when_customer_given_a_car_to_parkingBoy() {
         //given
         ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
         Car car = new Car();
 
         //when
-        Ticket ticket = parkingBoy.park(car);
+        Ticket ticket = parkingLot.park(car);
 
         //then
         assertTrue(ticket != null);
@@ -29,11 +28,10 @@ public class ParkingBoyTest {
         //given
         Car car = new Car();
         ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
-        Ticket ticket = parkingBoy.park(car);
+        Ticket ticket = parkingLot.park(car);
 
         //when
-        Car actualCar = parkingBoy.fetch(ticket);
+        Car actualCar = parkingLot.fetch(ticket);
 
         //then
         assertEquals(car, actualCar);
@@ -44,14 +42,13 @@ public class ParkingBoyTest {
     void should_return_no_ticket_when_parkingLot_given_no_position() {
         //given
         ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
 
         //when
         Car car = new Car();
         for(int i=1; i<=10; i++){
-            parkingBoy.park(car);
+            parkingLot.park(car);
         }
-        Ticket ticket = parkingBoy.park(car);
+        Ticket ticket = parkingLot.park(car);
 
         //then
         assertTrue(ticket == null);
