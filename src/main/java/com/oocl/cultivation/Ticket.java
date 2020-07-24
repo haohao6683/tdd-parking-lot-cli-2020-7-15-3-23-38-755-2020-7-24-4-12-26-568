@@ -1,5 +1,5 @@
 package com.oocl.cultivation;
 
-public class ParkingBoy {
+public class Ticket {
 
 }
