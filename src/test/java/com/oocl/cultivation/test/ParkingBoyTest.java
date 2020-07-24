@@ -72,6 +72,19 @@ public class ParkingBoyTest {
     }
 
     @Test
+    void should_return_no_car_when_parkingBoy_given_the_used_ticket() {
+        //given
+        Ticket ticketA = parkingBoy.park(new Car());
+
+        //when
+        Car carA = parkingBoy.fetch(ticketA);
+        Car carB = parkingBoy.fetch(ticketA);
+
+        //then
+        assertTrue(carB == null);
+    }
+
+    @Test
     void should_return_no_ticket_when_given_parkingLot_is_full() {
         //given
         for(int i = 1; i <= 10; i++){
