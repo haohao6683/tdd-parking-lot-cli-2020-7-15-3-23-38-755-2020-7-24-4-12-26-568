@@ -37,20 +37,4 @@ public class ParkingLotTest {
         assertEquals(car, actualCar);
     }
 
-
-    @Test
-    void should_return_no_ticket_when_parkingLot_given_no_position() {
-        //given
-        ParkingLot parkingLot = new ParkingLot();
-
-        //when
-        Car car = new Car();
-        for(int i=1; i<=10; i++){
-            parkingLot.park(car);
-        }
-        Ticket ticket = parkingLot.park(car);
-
-        //then
-        assertTrue(ticket == null);
-    }
 }

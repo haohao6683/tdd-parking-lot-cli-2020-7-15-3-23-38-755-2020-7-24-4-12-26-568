@@ -39,6 +39,21 @@ public class ParkingBoyTest {
         assertEquals(car, actualCar);
     }
 
+    @Test
+    void should_return_correct_car_when_parkingBoy_given_the_corresponding_ticket() {
+        //given
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        Ticket ticketA = parkingBoy.park(new Car());
+        Ticket ticketB = parkingBoy.park(new Car());
+
+        //when
+        Car carA = parkingBoy.fetch(ticketA);
+        Car carB = parkingBoy.fetch(ticketB);
+
+        //then
+        assertTrue(carA != carB);
+    }
 
     @Test
     void should_return_no_ticket_when_parkingLot_given_no_position() {
