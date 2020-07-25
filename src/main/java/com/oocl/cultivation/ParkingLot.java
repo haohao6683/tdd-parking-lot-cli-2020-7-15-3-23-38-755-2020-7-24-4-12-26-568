@@ -9,9 +9,9 @@ public class ParkingLot {
     private int capacity = 10;
     private final Map<Ticket,Car> parkingRooms = new HashMap<>(10);
 
-    public Ticket park(Car car) {
+    public Ticket park(Car car) throws ParkingLotException {
         if(parkingRooms.size() >= capacity){
-            return null;
+            throw new ParkingLotException("Not enough position.");
         }
         Ticket ticket = new Ticket();
         parkingRooms.put(ticket,car);

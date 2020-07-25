@@ -13,12 +13,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ParkingLotTest {
     @Test
     void should_return_ticket_when_customer_given_a_car_to_parkingBoy() {
-        //given
-        ParkingLot parkingLot = new ParkingLot();
-        Car car = new Car();
+        Ticket ticket = null;
+        try {
+            //given
+            ParkingLot parkingLot = new ParkingLot();
+            Car car = new Car();
 
-        //when
-        Ticket ticket = parkingLot.park(car);
+            //when
+            ticket = parkingLot.park(car);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
 
         //then
         assertTrue(ticket != null);

@@ -171,10 +171,12 @@ public class ParkingBoyTest {
     void should_return_error_message_when_parkingLot_has_no_position() {
         try{
             //given
-            Car car = new Car();
+            for(int i = 1; i <= 10; i++){
+                parkingBoy.park(new Car());
+            }
 
             //when
-            parkingBoy.park(car);
+            parkingBoy.park(new Car());
         }
         catch (ParkingLotException e){
             //then
