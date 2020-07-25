@@ -183,4 +183,23 @@ public class ParkingBoyTest {
             assertEquals("Not enough position.", e.getMessage());
         }
     }
+
+    @Test
+    void should_park_car_sequentially_when_some_parkingLot_if_full() {
+        try{
+            //given
+            for(int i = 1; i <= 10; i++){
+                parkingBoy.park(new Car());
+            }
+
+            //when
+            Ticket ticket = parkingBoy.park(new Car());
+
+            //then
+            assertNotNull(ticket);
+        }
+        catch (ParkingLotException e){
+            e.printStackTrace();
+        }
+    }
 }
