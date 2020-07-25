@@ -18,8 +18,11 @@ public class ParkingLot {
         return ticket;
     }
 
-    public Car fetch(Ticket ticket){
+    public Car fetch(Ticket ticket) throws ParkingLotException {
         Car car = parkingRooms.get(ticket);
+        if(car == null){
+            throw new ParkingLotException("Unrecognized parking ticket.");
+        }
         parkingRooms.remove(ticket);
         return car;
     }
