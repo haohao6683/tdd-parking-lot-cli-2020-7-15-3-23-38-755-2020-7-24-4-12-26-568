@@ -4,6 +4,7 @@ import com.oocl.cultivation.Car;
 import com.oocl.cultivation.ParkingBoy;
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.Ticket;
+import exception.ParkingLotException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,17 +28,23 @@ public class ParkingBoyTest {
         Ticket ticket = parkingBoy.park(car);
 
         //then
-        assertTrue(ticket != null);
+        assertNotNull(ticket);
     }
 
     @Test
     void should_return_car_when_customer_given_a_ticket_to_parkingBoy() {
-        //given
-        Car car = new Car();
-        Ticket ticket = parkingBoy.park(car);
+        Car car = null;
+        Car actualCar = null;
+        try {
+            //given
+            car = new Car();
+            Ticket ticket = parkingBoy.park(car);
 
-        //when
-        Car actualCar = parkingBoy.fetch(ticket);
+            //when
+            actualCar = parkingBoy.fetch(ticket);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
 
         //then
         assertEquals(car, actualCar);
@@ -45,13 +52,19 @@ public class ParkingBoyTest {
 
     @Test
     void should_return_correct_car_when_parkingBoy_given_the_corresponding_ticket() {
-        //given
-        Ticket ticketA = parkingBoy.park(new Car());
-        Ticket ticketB = parkingBoy.park(new Car());
+        Car carA = null;
+        Car carB = null;
+        try {
+            //given
+            Ticket ticketA = parkingBoy.park(new Car());
+            Ticket ticketB = parkingBoy.park(new Car());
 
-        //when
-        Car carA = parkingBoy.fetch(ticketA);
-        Car carB = parkingBoy.fetch(ticketB);
+            //when
+            carA = parkingBoy.fetch(ticketA);
+            carB = parkingBoy.fetch(ticketB);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
 
         //then
         assertNotEquals(carA, carB);
@@ -59,13 +72,20 @@ public class ParkingBoyTest {
 
     @Test
     void should_return_no_car_when_parkingBoy_given_the_wrong_ticket() {
-        //given
-        Ticket ticketA = parkingBoy.park(new Car());
+        Car carA = null;
+        Car carB = null;
+        Car carC = null;
+        try {
+            //given
+            Ticket ticketA = parkingBoy.park(new Car());
 
-        //when
-        Car carA = parkingBoy.fetch(ticketA);
-        Car carB = parkingBoy.fetch(new Ticket());
-        Car carC = parkingBoy.fetch(null);
+            //when
+            carA = parkingBoy.fetch(ticketA);
+            carB = parkingBoy.fetch(new Ticket());
+            carC = parkingBoy.fetch(null);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
 
         //then
         assertTrue(!carA.equals(carB) && !carA.equals(carC));
@@ -73,15 +93,21 @@ public class ParkingBoyTest {
 
     @Test
     void should_return_no_car_when_parkingBoy_given_the_used_ticket() {
-        //given
-        Ticket ticketA = parkingBoy.park(new Car());
+        Car carA = null;
+        Car carB = null;
+        try {
+            //given
+            Ticket ticketA = parkingBoy.park(new Car());
 
-        //when
-        Car carA = parkingBoy.fetch(ticketA);
-        Car carB = parkingBoy.fetch(ticketA);
+            //when
+            carA = parkingBoy.fetch(ticketA);
+            carB = parkingBoy.fetch(ticketA);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
 
         //then
-        assertTrue(carB == null);
+        assertTrue(carA != null && carB == null);
     }
 
     @Test
@@ -95,6 +121,22 @@ public class ParkingBoyTest {
         Ticket ticket = parkingBoy.park(car);
 
         //then
-        assertTrue(ticket == null);
+        assertNull(ticket);
+    }
+
+    @Test
+    void should_return_error_message_when_customer_give_the_wrong_ticket() {
+        try{
+            //given
+            Ticket ticketA = parkingBoy.park(new Car());
+
+            //when
+            parkingBoy.fetch(ticketA);
+            parkingBoy.fetch(new Ticket());
+        }
+        catch (ParkingLotException e){
+            //then
+            assertEquals("Unrecognized parking ticket.", e.getMessage());
+        }
     }
 }

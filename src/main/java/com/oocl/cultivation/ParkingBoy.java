@@ -1,5 +1,7 @@
 package com.oocl.cultivation;
 
+import exception.ParkingLotException;
+
 public class ParkingBoy {
     private ParkingLot parkingLot;
 
@@ -11,7 +13,7 @@ public class ParkingBoy {
         return parkingLot.park(car);
     }
 
-    public Car fetch(Ticket ticket) {
+    public Car fetch(Ticket ticket) throws ParkingLotException {
         return parkingLot.fetch(ticket);
     }
 }
