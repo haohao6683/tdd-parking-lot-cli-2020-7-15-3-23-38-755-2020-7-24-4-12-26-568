@@ -139,4 +139,19 @@ public class ParkingBoyTest {
             assertEquals("Unrecognized parking ticket.", e.getMessage());
         }
     }
+
+    @Test
+    void should_return_error_message_when_customer_give_no_ticket() {
+        try{
+            //given
+            Ticket ticketA = parkingBoy.park(new Car());
+
+            //when
+            parkingBoy.fetch(null);
+        }
+        catch (ParkingLotException e){
+            //then
+            assertEquals("Please provide your parking ticket.", e.getMessage());
+        }
+    }
 }
