@@ -21,11 +21,16 @@ public class ParkingBoyTest {
 
     @Test
     void should_return_ticket_when_customer_given_a_car_to_parkingBoy() {
-        //given
-        Car car = new Car();
+        Ticket ticket = null;
+        try {
+            //given
+            Car car = new Car();
 
-        //when
-        Ticket ticket = parkingBoy.park(car);
+            //when
+            ticket = parkingBoy.park(car);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
 
         //then
         assertNotNull(ticket);
@@ -112,13 +117,20 @@ public class ParkingBoyTest {
 
     @Test
     void should_return_no_ticket_when_given_parkingLot_is_full() {
-        //given
-        for(int i = 1; i <= 10; i++){
-            parkingBoy.park(new Car());
+        Ticket ticket = null;
+        try {
+            //given
+            for(int i = 1; i <= 10; i++){
+                parkingBoy.park(new Car());
+            }
+
+            //when
+            Car car = new Car();
+            ticket = parkingBoy.park(car);
+
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
         }
-        //when
-        Car car = new Car();
-        Ticket ticket = parkingBoy.park(car);
 
         //then
         assertNull(ticket);
@@ -152,6 +164,21 @@ public class ParkingBoyTest {
         catch (ParkingLotException e){
             //then
             assertEquals("Please provide your parking ticket.", e.getMessage());
+        }
+    }
+
+    @Test
+    void should_return_error_message_when_parkingLot_has_no_position() {
+        try{
+            //given
+            Car car = new Car();
+
+            //when
+            parkingBoy.park(car);
+        }
+        catch (ParkingLotException e){
+            //then
+            assertEquals("Not enough position.", e.getMessage());
         }
     }
 }
