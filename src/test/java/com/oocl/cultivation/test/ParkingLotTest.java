@@ -13,17 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ParkingLotTest {
     @Test
     void should_return_ticket_when_customer_given_a_car_to_parkingBoy() {
-        Ticket ticket = null;
-        try {
-            //given
-            ParkingLot parkingLot = new ParkingLot();
-            Car car = new Car();
+        //given
+        ParkingLot parkingLot = new ParkingLot(10);
+        Car car = new Car();
 
-            //when
-            ticket = parkingLot.park(car);
-        } catch (ParkingLotException e) {
-            e.printStackTrace();
-        }
+        //when
+        Ticket ticket = parkingLot.park(car);
 
         //then
         assertTrue(ticket != null);
@@ -31,19 +26,13 @@ public class ParkingLotTest {
 
     @Test
     void should_return_car_when_customer_given_a_ticket_to_parkingBoy() {
-        Car car = null;
-        Car actualCar = null;
-        try {
-            //given
-            car = new Car();
-            ParkingLot parkingLot = new ParkingLot();
-            Ticket ticket = parkingLot.park(car);
+        //given
+        Car car = new Car();
+        ParkingLot parkingLot = new ParkingLot(10);
+        Ticket ticket = parkingLot.park(car);
 
-            //when
-            actualCar = parkingLot.fetch(ticket);
-        } catch (ParkingLotException e) {
-            e.printStackTrace();
-        }
+        //when
+        Car actualCar = parkingLot.fetch(ticket);
 
         //then
         assertEquals(car, actualCar);

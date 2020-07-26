@@ -2,18 +2,50 @@ package com.oocl.cultivation;
 
 import exception.ParkingLotException;
 
-public class ParkingBoy {
-    private ParkingLot parkingLot;
+import java.util.ArrayList;
+import java.util.List;
 
-    public ParkingBoy(ParkingLot parkingLot) {
-        this.parkingLot = parkingLot;
+public class ParkingBoy {
+    private List<ParkingLot> parkingLotList;
+
+    public ParkingBoy(List<ParkingLot> parkingLotList) {
+        this.parkingLotList = parkingLotList;
     }
 
     public Ticket park(Car car) throws ParkingLotException{
-        return parkingLot.park(car);
+        Ticket ticket = null;
+
+        for(ParkingLot parkingLot : parkingLotList){
+            ticket = parkingLot.park(car);
+            if (ticket != null) {
+                break;
+            }
+        }
+
+        if(ticket == null){
+            throw new ParkingLotException("Not enough position.");
+        }
+
+        return ticket;
     }
 
     public Car fetch(Ticket ticket) throws ParkingLotException {
-        return parkingLot.fetch(ticket);
+        if(ticket == null){
+            throw new ParkingLotException("Please provide your parking ticket.");
+        }
+
+        Car car = null;
+        for(ParkingLot parkingLot : parkingLotList){
+            car = parkingLot.fetch(ticket);
+            if (car != null) {
+                break;
+            }
+        }
+
+        if(car == null){
+            throw new ParkingLotException("Unrecognized parking ticket.");
+        }
+
+        return car;
     }
 }

@@ -8,6 +8,9 @@ import exception.ParkingLotException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingBoyTest {
@@ -15,8 +18,9 @@ public class ParkingBoyTest {
 
     @BeforeEach
     public void setup() {
-        ParkingLot parkingLot = new ParkingLot();
-        parkingBoy = new ParkingBoy(parkingLot);
+        ParkingLot parkingLotA = new ParkingLot(10);
+        ParkingLot parkingLotB = new ParkingLot(10);
+        parkingBoy = new ParkingBoy(Arrays.asList(parkingLotA,parkingLotB));
     }
 
     @Test
@@ -108,11 +112,9 @@ public class ParkingBoyTest {
             carA = parkingBoy.fetch(ticketA);
             carB = parkingBoy.fetch(ticketA);
         } catch (ParkingLotException e) {
-            e.printStackTrace();
+            //then
+            assertEquals("Unrecognized parking ticket.", e.getMessage());
         }
-
-        //then
-        assertTrue(carA != null && carB == null);
     }
 
     @Test
@@ -129,11 +131,9 @@ public class ParkingBoyTest {
             ticket = parkingBoy.park(car);
 
         } catch (ParkingLotException e) {
-            e.printStackTrace();
+            //then
+            assertEquals("Unrecognized parking ticket.", e.getMessage());
         }
-
-        //then
-        assertNull(ticket);
     }
 
     @Test
@@ -156,7 +156,7 @@ public class ParkingBoyTest {
     void should_return_error_message_when_customer_give_no_ticket() {
         try{
             //given
-            Ticket ticketA = parkingBoy.park(new Car());
+            parkingBoy.park(new Car());
 
             //when
             parkingBoy.fetch(null);

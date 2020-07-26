@@ -6,27 +6,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ParkingLot {
-    private int capacity = 10;
-    private final Map<Ticket,Car> parkingRooms = new HashMap<>(10);
+    private int capacity;
+    private final Map<Ticket,Car> parkingRooms = new HashMap<>();
 
-    public Ticket park(Car car) throws ParkingLotException {
+    public Ticket park(Car car){
         if(parkingRooms.size() >= capacity){
-            throw new ParkingLotException("Not enough position.");
+            return null;
         }
         Ticket ticket = new Ticket();
         parkingRooms.put(ticket,car);
         return ticket;
     }
 
-    public Car fetch(Ticket ticket) throws ParkingLotException {
-        if(ticket == null){
-            throw new ParkingLotException("Please provide your parking ticket.");
-        }
+    public Car fetch(Ticket ticket){
         Car car = parkingRooms.get(ticket);
         if(car == null){
-            throw new ParkingLotException("Unrecognized parking ticket.");
+           return null;
         }
         parkingRooms.remove(ticket);
         return car;
+    }
+
+    public ParkingLot(int capacity) {
+        this.capacity = capacity;
     }
 }
