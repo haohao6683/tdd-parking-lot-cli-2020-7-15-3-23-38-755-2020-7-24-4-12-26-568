@@ -11,10 +11,10 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingBoyTest {
-    private ParkingBoy parkingBoy;
-    private SmartParkingBoy smartParkingBoy;
-    private ParkingLot parkingLotA;
-    private ParkingLot parkingLotB;
+    protected ParkingBoy parkingBoy;
+    protected SmartParkingBoy smartParkingBoy;
+    protected ParkingLot parkingLotA;
+    protected ParkingLot parkingLotB;
 
     @BeforeEach
     public void setup() {
