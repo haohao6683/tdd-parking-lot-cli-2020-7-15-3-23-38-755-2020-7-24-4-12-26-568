@@ -129,7 +129,7 @@ public class ParkingBoyTest {
 
         } catch (ParkingLotException e) {
             //then
-            assertEquals("Unrecognized parking ticket.", e.getMessage());
+            assertEquals("Not enough position.", e.getMessage());
         }
     }
 
@@ -200,22 +200,4 @@ public class ParkingBoyTest {
         }
     }
 
-    @Test
-    void should_park_car_which_contains_more_empty_positions_when_smartParkingBoy_parking() {
-        try{
-            //given
-            for(int i = 1; i <= 5; i++){
-                parkingBoy.park(new Car());
-            }
-
-            //when
-            smartParkingBoy.park(new Car());
-
-            //then
-            assertTrue(parkingLotA.getUsed() == 1 || parkingLotB.getUsed() == 1);
-        }
-        catch (ParkingLotException e){
-            e.printStackTrace();
-        }
-    }
 }
