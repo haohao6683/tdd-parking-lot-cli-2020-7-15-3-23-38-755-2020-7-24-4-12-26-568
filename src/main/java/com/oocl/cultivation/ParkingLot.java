@@ -1,16 +1,14 @@
 package com.oocl.cultivation;
-
-import exception.ParkingLotException;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class ParkingLot {
     private int capacity;
+    private int used;
     private final Map<Ticket,Car> parkingRooms = new HashMap<>();
 
     public Ticket park(Car car){
-        if(parkingRooms.size() >= capacity){
+        if(used >= capacity){
             return null;
         }
         Ticket ticket = new Ticket();
@@ -29,5 +27,9 @@ public class ParkingLot {
 
     public ParkingLot(int capacity) {
         this.capacity = capacity;
+    }
+
+    public int getUsed() {
+        return parkingRooms.size();
     }
 }

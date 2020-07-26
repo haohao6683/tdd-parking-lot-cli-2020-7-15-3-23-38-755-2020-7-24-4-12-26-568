@@ -1,9 +1,6 @@
 package com.oocl.cultivation.test;
 
-import com.oocl.cultivation.Car;
-import com.oocl.cultivation.ParkingBoy;
-import com.oocl.cultivation.ParkingLot;
-import com.oocl.cultivation.Ticket;
+import com.oocl.cultivation.*;
 import exception.ParkingLotException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,12 +12,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingBoyTest {
     private ParkingBoy parkingBoy;
+    private SmartParkingBoy smartParkingBoy;
+    private ParkingLot parkingLotA;
+    private ParkingLot parkingLotB;
 
     @BeforeEach
     public void setup() {
-        ParkingLot parkingLotA = new ParkingLot(10);
-        ParkingLot parkingLotB = new ParkingLot(10);
+        parkingLotA = new ParkingLot(10);
+        parkingLotB = new ParkingLot(10);
         parkingBoy = new ParkingBoy(Arrays.asList(parkingLotA,parkingLotB));
+        smartParkingBoy = new SmartParkingBoy(Arrays.asList(parkingLotA,parkingLotB));
     }
 
     @Test
@@ -81,23 +82,19 @@ public class ParkingBoyTest {
 
     @Test
     void should_return_no_car_when_parkingBoy_given_the_wrong_ticket() {
-        Car carA = null;
-        Car carB = null;
-        Car carC = null;
         try {
             //given
             Ticket ticketA = parkingBoy.park(new Car());
 
             //when
-            carA = parkingBoy.fetch(ticketA);
-            carB = parkingBoy.fetch(new Ticket());
-            carC = parkingBoy.fetch(null);
+            parkingBoy.fetch(ticketA);
+            parkingBoy.fetch(new Ticket());
+            parkingBoy.fetch(null);
         } catch (ParkingLotException e) {
-            e.printStackTrace();
+            //then
+            assertEquals("Unrecognized parking ticket.", e.getMessage());
         }
 
-        //then
-        assertTrue(!carA.equals(carB) && !carA.equals(carC));
     }
 
     @Test
@@ -197,6 +194,25 @@ public class ParkingBoyTest {
 
             //then
             assertNotNull(ticket);
+        }
+        catch (ParkingLotException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void should_park_car_which_contains_more_empty_positions_when_smartParkingBoy_parking() {
+        try{
+            //given
+            for(int i = 1; i <= 5; i++){
+                parkingBoy.park(new Car());
+            }
+
+            //when
+            smartParkingBoy.park(new Car());
+
+            //then
+            assertTrue(parkingLotA.getUsed() == 1 || parkingLotB.getUsed() == 1);
         }
         catch (ParkingLotException e){
             e.printStackTrace();
