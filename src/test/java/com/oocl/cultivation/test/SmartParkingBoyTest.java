@@ -26,9 +26,7 @@ public class SmartParkingBoyTest extends ParkingBoyTest{
     void should_park_car_which_contains_more_empty_positions_when_smartParkingBoy_parking() {
         try{
             //given
-            for(int i = 1; i <= 5; i++){
-                parkingBoy.park(new Car());
-            }
+            parkingLotA.setUsed(parkingLotA.getCapacity()/2);
 
             //when
             smartParkingBoy.park(new Car());

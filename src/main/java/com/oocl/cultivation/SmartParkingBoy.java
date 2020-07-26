@@ -12,10 +12,12 @@ public class SmartParkingBoy extends ParkingBoy{
 
     @Override
     public Ticket park(Car car) throws ParkingLotException {
-        ParkingLot morePosLot = new ParkingLot();
-        morePosLot.setUsed(10);
+        ParkingLot morePosLot = null;
 
         for(ParkingLot parkingLot : parkingLotList){
+            if(morePosLot == null){
+                morePosLot = parkingLot;
+            }
             if(parkingLot.getUsed() < morePosLot.getUsed()){
                 morePosLot = parkingLot;
             }

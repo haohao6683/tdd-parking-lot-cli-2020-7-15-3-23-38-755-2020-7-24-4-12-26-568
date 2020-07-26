@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ParkingBoyTest {
     protected ParkingBoy parkingBoy;
     protected SmartParkingBoy smartParkingBoy;
+    protected SuperSmartParkingBoy superSmartParkingBoy;
     protected ParkingLot parkingLotA;
     protected ParkingLot parkingLotB;
 
@@ -168,9 +169,7 @@ public class ParkingBoyTest {
     void should_return_error_message_when_parkingLot_has_no_position() {
         try{
             //given
-            for(int i = 1; i <= 10; i++){
-                parkingBoy.park(new Car());
-            }
+            parkingLotA.setUsed(parkingLotA.getCapacity());
 
             //when
             parkingBoy.park(new Car());
@@ -185,9 +184,7 @@ public class ParkingBoyTest {
     void should_park_car_sequentially_when_some_parkingLot_if_full() {
         try{
             //given
-            for(int i = 1; i <= 10; i++){
-                parkingBoy.park(new Car());
-            }
+            parkingLotA.setUsed(parkingLotA.getCapacity());
 
             //when
             Ticket ticket = parkingBoy.park(new Car());

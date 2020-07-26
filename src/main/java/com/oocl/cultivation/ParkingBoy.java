@@ -14,8 +14,8 @@ public class ParkingBoy {
         Ticket ticket = null;
 
         for(ParkingLot parkingLot : parkingLotList){
-            ticket = parkingLot.park(car);
-            if (ticket != null) {
+            if(!parkingLot.isFull()){
+                ticket = parkingLot.park(car);
                 break;
             }
         }

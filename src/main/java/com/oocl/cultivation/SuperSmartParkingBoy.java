@@ -12,6 +12,22 @@ public class SuperSmartParkingBoy extends ParkingBoy {
 
     @Override
     public Ticket park(Car car) throws ParkingLotException {
-        return super.park(car);
+        ParkingLot morePosRateLot = null;
+
+        for(ParkingLot parkingLot : parkingLotList){
+            if(morePosRateLot == null){
+                morePosRateLot = parkingLot;
+            }
+            if(parkingLot.getAvaliable()/parkingLot.getCapacity() > morePosRateLot.getAvaliable()/morePosRateLot.getCapacity()){
+                morePosRateLot = parkingLot;
+            }
+        }
+        Ticket ticket = morePosRateLot.park(car);
+
+        if(ticket == null){
+            throw new ParkingLotException("Not enough position.");
+        }
+
+        return ticket;
     }
 }
