@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SuperSmartParkingBoyTest extends ParkingBoyTest {
     protected SuperSmartParkingBoy superSmartParkingBoy;
@@ -23,12 +23,13 @@ public class SuperSmartParkingBoyTest extends ParkingBoyTest {
         try {
             //given
             parkingLotA.setUsed(parkingLotA.getCapacity()/2);
+            parkingLotB.setUsed(parkingLotB.getCapacity());
 
             //when
             superSmartParkingBoy.park(new Car());
 
             //then
-            assertTrue(parkingLotA.getUsed() == 5 && parkingLotB.getUsed() == 1);
+            assertEquals(6, parkingLotA.getUsed());
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
