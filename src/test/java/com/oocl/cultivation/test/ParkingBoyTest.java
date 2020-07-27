@@ -180,10 +180,10 @@ public class ParkingBoyTest {
             parkingLotA.setUsed(parkingLotA.getCapacity());
 
             //when
-            Ticket ticket = parkingBoy.park(new Car());
+            parkingBoy.park(new Car());
 
             //then
-            assertNotNull(ticket);
+            assertEquals(1, parkingLotB.getUsed());
         }
         catch (ParkingLotException e){
             e.printStackTrace();
