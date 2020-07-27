@@ -11,10 +11,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingManagerTest {
     protected ParkingLot parkingLot;
+    ParkingManager parkingManager;
 
     @BeforeEach
     public void setup() {
         parkingLot = new ParkingLot(10);
+        parkingManager = new ParkingManager(new ParkingBoy(Arrays.asList(parkingLot)));
     }
     @Test
     void should_specify_a_parkingBoy_on_the_list_to_park_a_car() {
@@ -37,8 +39,6 @@ public class ParkingManagerTest {
     void should_specify_a_parkingBoy_on_the_list_to_fetch_a_car() {
         try {
             //given
-            ParkingLot parkingLotA = new ParkingLot(10);
-            ParkingManager parkingManager = new ParkingManager(new ParkingBoy(Arrays.asList(parkingLotA)));
             Ticket ticket = parkingManager.park(new Car());
 
             //when
@@ -57,7 +57,6 @@ public class ParkingManagerTest {
         try {
             //given
             Car car = new Car();
-            ParkingManager parkingManager = new ParkingManager(new ParkingBoy(Arrays.asList(parkingLot)));
 
             //when
             Ticket ticket = parkingManager.park(car);
@@ -74,7 +73,6 @@ public class ParkingManagerTest {
         try {
             //given
             Car car = new Car();
-            ParkingManager parkingManager = new ParkingManager(new ParkingBoy(Arrays.asList(parkingLot)));
             Ticket ticket = parkingManager.park(car);;
 
             //when
@@ -86,4 +84,5 @@ public class ParkingManagerTest {
             e.printStackTrace();
         }
     }
+
 }
