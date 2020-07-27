@@ -87,7 +87,7 @@ public class ParkingBoyTest {
             //then
             assertNull(car);
         } catch (ParkingLotException e) {
-            e.printStackTrace();
+            assertEquals("Unrecognized parking ticket.", e.getMessage());
         }
     }
 
