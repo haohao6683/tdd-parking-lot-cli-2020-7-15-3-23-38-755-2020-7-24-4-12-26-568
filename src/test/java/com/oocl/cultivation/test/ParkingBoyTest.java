@@ -74,7 +74,6 @@ public class ParkingBoyTest {
         }
     }
 
-    //todo 每一个测试都是要最小实现。
     @Test
     void should_return_no_car_when_parkingBoy_given_the_wrong_ticket() {
 
@@ -100,9 +99,11 @@ public class ParkingBoyTest {
 
             //when
             parkingBoy.fetch(ticketA);
-            parkingBoy.fetch(ticketA);
-        } catch (ParkingLotException e) {
+            Car car = parkingBoy.fetch(ticketA);
+
             //then
+            assertNull(car);
+        } catch (ParkingLotException e) {
             assertEquals("Unrecognized parking ticket.", e.getMessage());
         }
     }
