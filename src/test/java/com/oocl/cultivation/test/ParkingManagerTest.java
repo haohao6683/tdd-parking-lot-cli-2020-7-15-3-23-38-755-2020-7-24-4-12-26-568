@@ -114,4 +114,22 @@ public class ParkingManagerTest {
             assertEquals("Please provide your parking ticket.", e.getMessage());
         }
     }
+
+    @Test
+    void should_return_error_message_when_parkingLot_has_no_position() {
+        try{
+            //given
+            ParkingLot parkingLotA = new ParkingLot(10);
+            ParkingLot parkingLotB = new ParkingLot(10);
+            parkingLotA.setUsed(parkingLotA.getCapacity());
+            parkingLotB.setUsed(parkingLotB.getCapacity());
+
+            //when
+            parkingManager.park(new Car());
+        }
+        catch (ParkingLotException e){
+            //then
+            assertEquals("Not enough position.", e.getMessage());
+        }
+    }
 }
