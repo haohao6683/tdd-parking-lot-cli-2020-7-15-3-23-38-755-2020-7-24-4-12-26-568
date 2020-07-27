@@ -9,106 +9,98 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+//todo 重新检查所有测试用例的写法
 public class ParkingBoyTest {
     protected ParkingBoy parkingBoy;
-    protected SmartParkingBoy smartParkingBoy;
-    protected SuperSmartParkingBoy superSmartParkingBoy;
     protected ParkingLot parkingLotA;
     protected ParkingLot parkingLotB;
 
     @BeforeEach
     public void setup() {
+        //todo 容量可变？一个测试里面不要有两个boy交叉管理这个parkingLot
         parkingLotA = new ParkingLot(10);
         parkingLotB = new ParkingLot(10);
         parkingBoy = new ParkingBoy(Arrays.asList(parkingLotA,parkingLotB));
-        smartParkingBoy = new SmartParkingBoy(Arrays.asList(parkingLotA,parkingLotB));
     }
 
     @Test
     void should_return_ticket_when_customer_given_a_car_to_parkingBoy() {
-        Ticket ticket = null;
         try {
             //given
             Car car = new Car();
 
             //when
-            ticket = parkingBoy.park(car);
+            Ticket ticket = parkingBoy.park(car);
+
+            //then
+            assertNotNull(ticket);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
-
-        //then
-        assertNotNull(ticket);
     }
 
     @Test
     void should_return_car_when_customer_given_a_ticket_to_parkingBoy() {
-        Car car = null;
-        Car actualCar = null;
         try {
             //given
-            car = new Car();
+            Car car = new Car();
             Ticket ticket = parkingBoy.park(car);
 
             //when
-            actualCar = parkingBoy.fetch(ticket);
+            Car actualCar = parkingBoy.fetch(ticket);
+
+            //then
+            assertEquals(car, actualCar);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
-
-        //then
-        assertEquals(car, actualCar);
     }
 
     @Test
     void should_return_correct_car_when_parkingBoy_given_the_corresponding_ticket() {
-        Car carA = null;
-        Car carB = null;
         try {
             //given
             Ticket ticketA = parkingBoy.park(new Car());
             Ticket ticketB = parkingBoy.park(new Car());
 
             //when
-            carA = parkingBoy.fetch(ticketA);
-            carB = parkingBoy.fetch(ticketB);
+            Car carA = parkingBoy.fetch(ticketA);
+            Car carB = parkingBoy.fetch(ticketB);
+
+            //then
+            assertNotEquals(carA, carB);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
+    }
 
-        //then
-        assertNotEquals(carA, carB);
+    //todo 每一个测试都是要最小实现。
+    @Test
+    void should_return_no_car_when_parkingBoy_given_the_wrong_ticket() {
+
+        try {
+            //given
+            parkingBoy.park(new Car());
+
+            //when
+            Car car = parkingBoy.fetch(new Ticket());
+
+            //then
+            assertNull(car);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
-    void should_return_no_car_when_parkingBoy_given_the_wrong_ticket() {
+    void should_return_no_car_when_parkingBoy_given_the_used_ticket() {
         try {
             //given
             Ticket ticketA = parkingBoy.park(new Car());
 
             //when
             parkingBoy.fetch(ticketA);
-            parkingBoy.fetch(new Ticket());
-            parkingBoy.fetch(null);
-        } catch (ParkingLotException e) {
-            //then
-            assertEquals("Unrecognized parking ticket.", e.getMessage());
-        }
-
-    }
-
-    @Test
-    void should_return_no_car_when_parkingBoy_given_the_used_ticket() {
-        Car carA = null;
-        Car carB = null;
-        try {
-            //given
-            Ticket ticketA = parkingBoy.park(new Car());
-
-            //when
-            carA = parkingBoy.fetch(ticketA);
-            carB = parkingBoy.fetch(ticketA);
+            parkingBoy.fetch(ticketA);
         } catch (ParkingLotException e) {
             //then
             assertEquals("Unrecognized parking ticket.", e.getMessage());
@@ -117,7 +109,6 @@ public class ParkingBoyTest {
 
     @Test
     void should_return_no_ticket_when_given_parkingLot_is_full() {
-        Ticket ticket = null;
         try {
             //given
             for(int i = 1; i <= 10; i++){
@@ -126,7 +117,7 @@ public class ParkingBoyTest {
 
             //when
             Car car = new Car();
-            ticket = parkingBoy.park(car);
+            parkingBoy.park(car);
 
         } catch (ParkingLotException e) {
             //then
@@ -180,6 +171,7 @@ public class ParkingBoyTest {
         }
     }
 
+    //todo 实现方面要参考一下别的同学
     @Test
     void should_park_car_sequentially_when_some_parkingLot_if_full() {
         try{

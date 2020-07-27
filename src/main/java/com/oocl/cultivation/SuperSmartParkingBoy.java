@@ -18,6 +18,7 @@ public class SuperSmartParkingBoy extends ParkingBoy {
             if(morePosRateLot == null){
                 morePosRateLot = parkingLot;
             }
+            //todo double问题
             if(parkingLot.getAvaliable()/parkingLot.getCapacity() > morePosRateLot.getAvaliable()/morePosRateLot.getCapacity()){
                 morePosRateLot = parkingLot;
             }
