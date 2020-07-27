@@ -2,6 +2,7 @@ package com.oocl.cultivation;
 
 import exception.ParkingLotException;
 import java.util.List;
+import java.util.Optional;
 
 public class ParkingBoy {
     protected List<ParkingLot> parkingLotList;
@@ -11,20 +12,16 @@ public class ParkingBoy {
     }
 
     public Ticket park(Car car) throws ParkingLotException{
-        Ticket ticket = null;
+        Optional<ParkingLot> validParkingLot = parkingLotList.stream().
+                                        filter(parkingLot -> !parkingLot.isFull())
+                                        .findFirst();
 
-        for(ParkingLot parkingLot : parkingLotList){
-            if(!parkingLot.isFull()){
-                ticket = parkingLot.park(car);
-                break;
-            }
+        if(validParkingLot.isPresent()){
+            return validParkingLot.get().park(car);
         }
-
-        if(ticket == null){
+        else{
             throw new ParkingLotException("Not enough position.");
         }
-
-        return ticket;
     }
 
     public Car fetch(Ticket ticket) throws ParkingLotException {
