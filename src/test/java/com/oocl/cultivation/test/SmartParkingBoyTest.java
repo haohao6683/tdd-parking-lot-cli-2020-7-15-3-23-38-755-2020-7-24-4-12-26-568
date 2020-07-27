@@ -29,7 +29,6 @@ public class SmartParkingBoyTest extends ParkingBoyTest{
             smartParkingBoy.park(new Car());
 
             //then
-            //todo assert要简单明确，不要把两个合起来
             assertEquals(1, parkingLotB.getUsed());
         }
         catch (ParkingLotException e){
