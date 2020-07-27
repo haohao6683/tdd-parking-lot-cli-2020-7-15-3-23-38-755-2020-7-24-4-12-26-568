@@ -2,7 +2,7 @@ package com.oocl.cultivation;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ParkingLot {
+public class ParkingLot implements Parkable{
     private int capacity;
     private int used = 0;
     private final Map<Ticket,Car> parkingRooms = new HashMap<>();

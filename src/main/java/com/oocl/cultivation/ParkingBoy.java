@@ -4,7 +4,7 @@ import exception.ParkingLotException;
 import java.util.List;
 import java.util.Optional;
 
-public class ParkingBoy {
+public class ParkingBoy implements Parkable{
     protected List<ParkingLot> parkingLotList;
 
     public ParkingBoy(List<ParkingLot> parkingLotList) {
@@ -42,5 +42,15 @@ public class ParkingBoy {
         }
 
         return car;
+    }
+
+    @Override
+    public boolean isFull() {
+        for (ParkingLot parkingLot : parkingLotList) {
+            if (parkingLot.isFull()) {
+                return true;
+            }
+        }
+        return false;
     }
 }
