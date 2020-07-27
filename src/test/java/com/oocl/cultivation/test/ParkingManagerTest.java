@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Spliterator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -130,6 +131,30 @@ public class ParkingManagerTest {
         catch (ParkingLotException e){
             //then
             assertEquals("Not enough position.", e.getMessage());
+        }
+    }
+
+    @Test
+    void should_park_car_when_parkingManager_manage_parkingLot_and_the_other_boy(){
+        //given
+        ParkingBoy parkingBoy = new ParkingBoy(Arrays.asList(new ParkingLot(1)));
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(Arrays.asList(new ParkingLot(1)));
+        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(Arrays.asList(new ParkingLot(1)));
+        ParkingManager parkingManagerA = new ParkingManager(parkingBoy,smartParkingBoy,superSmartParkingBoy,parkingLot);
+
+        try {
+            //when
+            Ticket ticketA = parkingManagerA.park(new Car());
+            Ticket ticketB = parkingManagerA.park(new Car());
+            Ticket ticketC = parkingManagerA.park(new Car());
+
+            //then
+            assertNotNull(ticketA);
+            assertNotNull(ticketB);
+            assertNotNull(ticketC);
+
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
         }
     }
 }
