@@ -161,6 +161,7 @@ public class ParkingBoyTest {
         try{
             //given
             parkingLotA.setUsed(parkingLotA.getCapacity());
+            parkingLotB.setUsed(parkingLotB.getCapacity());
 
             //when
             parkingBoy.park(new Car());
