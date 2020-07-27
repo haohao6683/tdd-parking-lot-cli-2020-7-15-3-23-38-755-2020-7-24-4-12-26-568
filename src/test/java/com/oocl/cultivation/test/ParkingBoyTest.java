@@ -127,10 +127,9 @@ public class ParkingBoyTest {
     void should_return_error_message_when_customer_give_the_wrong_ticket() {
         try{
             //given
-            Ticket ticketA = parkingBoy.park(new Car());
+            parkingBoy.park(new Car());
 
             //when
-            parkingBoy.fetch(ticketA);
             parkingBoy.fetch(new Ticket());
         }
         catch (ParkingLotException e){
