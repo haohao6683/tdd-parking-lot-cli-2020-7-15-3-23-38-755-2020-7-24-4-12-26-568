@@ -15,7 +15,7 @@ public class SmartParkingBoy extends ParkingBoy{
 
     @Override
     public Ticket park(Car car) throws ParkingLotException {
-        //todo 看能不能不用下面这个比较的对象
+        
         Optional<ParkingLot> validParkingLot = parkingLotList.stream().
                 filter(parkingLot -> !parkingLot.isFull())
                 .max(Comparator.comparingInt(ParkingLot :: getAvaliable));
