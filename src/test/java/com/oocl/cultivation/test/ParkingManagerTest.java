@@ -51,4 +51,21 @@ public class ParkingManagerTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    void should_return_ticket_when_customer_given_a_car_to_parkingManager() {
+        try {
+            //given
+            Car car = new Car();
+            ParkingManager parkingManager = new ParkingManager(new ParkingBoy(Arrays.asList(parkingLot)));
+
+            //when
+            Ticket ticket = parkingManager.park(car);
+
+            //then
+            assertNotNull(ticket);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
 }
