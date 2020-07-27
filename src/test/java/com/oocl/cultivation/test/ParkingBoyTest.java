@@ -109,20 +109,19 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_no_ticket_when_given_parkingLot_is_full() {
+    void should_return_ticket_when_parkingLotA_is_full() {
         try {
             //given
-            for(int i = 1; i <= 10; i++){
-                parkingBoy.park(new Car());
-            }
+            parkingLotA.setUsed(parkingLotA.getCapacity());
 
             //when
-            Car car = new Car();
-            parkingBoy.park(car);
+            Ticket ticket = parkingBoy.park(new Car());
 
+            //then
+            assertNotNull(ticket);
         } catch (ParkingLotException e) {
             //then
-            assertEquals("Not enough position.", e.getMessage());
+            e.printStackTrace();
         }
     }
 
