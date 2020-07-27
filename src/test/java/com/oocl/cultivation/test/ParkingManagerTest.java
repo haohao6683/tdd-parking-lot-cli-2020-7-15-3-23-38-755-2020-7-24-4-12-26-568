@@ -85,4 +85,18 @@ public class ParkingManagerTest {
         }
     }
 
+    @Test
+    void should_return_error_message_when_customer_give_the_wrong_ticket() {
+        try{
+            //given
+            parkingManager.park(new Car());
+
+            //when
+            parkingManager.fetch(new Ticket());
+        }
+        catch (ParkingLotException e){
+            //then
+            assertEquals("Unrecognized parking ticket.", e.getMessage());
+        }
+    }
 }
