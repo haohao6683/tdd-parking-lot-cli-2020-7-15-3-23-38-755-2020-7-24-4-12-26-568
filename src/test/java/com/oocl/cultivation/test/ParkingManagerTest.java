@@ -42,6 +42,7 @@ public class ParkingManagerTest {
             Ticket ticket = parkingManager.park(new Car());
 
             //when
+            //todo don't know which guy is doing the fetch action.
              Car car = parkingManager.fetch(ticket);
 
             //then

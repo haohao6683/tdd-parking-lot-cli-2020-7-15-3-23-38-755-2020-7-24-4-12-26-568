@@ -25,4 +25,24 @@ public class ParkingManager{
             throw new ParkingLotException("Not enough position.");
         }
     }
+
+    public Car fetch(Ticket ticket) throws ParkingLotException {
+        if(ticket == null){
+            throw new ParkingLotException("Please provide your parking ticket.");
+        }
+
+        Car car = null;
+        for(Parkable parkingLot : parkables){
+            car = parkingLot.fetch(ticket);
+            if (car != null) {
+                break;
+            }
+        }
+
+        if(car == null){
+            throw new ParkingLotException("Unrecognized parking ticket.");
+        }
+
+        return car;
+    }
 }
