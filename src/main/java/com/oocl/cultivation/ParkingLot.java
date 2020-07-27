@@ -47,6 +47,10 @@ public class ParkingLot {
         return this.capacity - this.getUsed();
     }
 
+    public double getAvailablePositionRate(){
+        return (double)getAvaliable() / getCapacity();
+    }
+
     public boolean isFull(){
         return this.capacity == this.getUsed();
     }

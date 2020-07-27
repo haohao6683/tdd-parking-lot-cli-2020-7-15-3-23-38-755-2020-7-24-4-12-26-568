@@ -2,7 +2,9 @@ package com.oocl.cultivation;
 
 import exception.ParkingLotException;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 public class SuperSmartParkingBoy extends ParkingBoy {
 
@@ -12,23 +14,15 @@ public class SuperSmartParkingBoy extends ParkingBoy {
 
     @Override
     public Ticket park(Car car) throws ParkingLotException {
-        ParkingLot morePosRateLot = null;
+        Optional<ParkingLot> validParkingLot = parkingLotList.stream().
+                filter(parkingLot -> !parkingLot.isFull())
+                .max(Comparator.comparingDouble(ParkingLot :: getAvailablePositionRate));
 
-        for(ParkingLot parkingLot : parkingLotList){
-            if(morePosRateLot == null){
-                morePosRateLot = parkingLot;
-            }
-            //todo double问题
-            if(parkingLot.getAvaliable()/parkingLot.getCapacity() > morePosRateLot.getAvaliable()/morePosRateLot.getCapacity()){
-                morePosRateLot = parkingLot;
-            }
+        if(validParkingLot.isPresent()){
+            return validParkingLot.get().park(car);
         }
-        Ticket ticket = morePosRateLot.park(car);
-
-        if(ticket == null){
+        else{
             throw new ParkingLotException("Not enough position.");
         }
-
-        return ticket;
     }
 }
