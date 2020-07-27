@@ -32,4 +32,22 @@ public class ParkingManagerTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    void should_specify_a_parkingBoy_on_the_list_to_fetch_a_car() {
+        try {
+            //given
+            ParkingLot parkingLotA = new ParkingLot(10);
+            ParkingManager parkingManager = new ParkingManager(new ParkingBoy(Arrays.asList(parkingLotA)));
+            Ticket ticket = parkingManager.park(new Car());
+
+            //when
+             Car car = parkingManager.fetch(ticket);
+
+            //then
+            assertNotNull(car);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
 }
