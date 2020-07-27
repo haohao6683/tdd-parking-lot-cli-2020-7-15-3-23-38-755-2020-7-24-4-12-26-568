@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SmartParkingBoyTest extends ParkingBoyTest{
-
+    protected SmartParkingBoy smartParkingBoy;
     @BeforeEach
     public void setup() {
         parkingLotA = new ParkingLot(10);

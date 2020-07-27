@@ -10,6 +10,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SuperSmartParkingBoyTest extends ParkingBoyTest {
+    protected SuperSmartParkingBoy superSmartParkingBoy;
     @BeforeEach
     public void setup() {
         parkingLotA = new ParkingLot(10);
