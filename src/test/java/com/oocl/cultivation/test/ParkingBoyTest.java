@@ -9,7 +9,6 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
-//todo 重新检查所有测试用例的写法
 public class ParkingBoyTest {
     protected ParkingBoy parkingBoy;
     protected ParkingLot parkingLotA;
@@ -17,7 +16,6 @@ public class ParkingBoyTest {
 
     @BeforeEach
     public void setup() {
-        //todo 容量可变？一个测试里面不要有两个boy交叉管理这个parkingLot
         parkingLotA = new ParkingLot(10);
         parkingLotB = new ParkingLot(10);
         parkingBoy = new ParkingBoy(Arrays.asList(parkingLotA,parkingLotB));
@@ -172,7 +170,6 @@ public class ParkingBoyTest {
         }
     }
 
-    //todo 实现方面要参考一下别的同学
     @Test
     void should_park_car_sequentially_when_some_parkingLot_if_full() {
         try{
