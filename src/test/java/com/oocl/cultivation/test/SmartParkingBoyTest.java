@@ -8,9 +8,7 @@ import exception.ParkingLotException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SmartParkingBoyTest extends ParkingBoyTest{
     protected SmartParkingBoy smartParkingBoy;
@@ -18,7 +16,6 @@ public class SmartParkingBoyTest extends ParkingBoyTest{
     public void setup() {
         parkingLotA = new ParkingLot(10);
         parkingLotB = new ParkingLot(10);
-        parkingBoy = new ParkingBoy(Arrays.asList(parkingLotA,parkingLotB));
         smartParkingBoy = new SmartParkingBoy(Arrays.asList(parkingLotA,parkingLotB));
     }
 
@@ -33,7 +30,7 @@ public class SmartParkingBoyTest extends ParkingBoyTest{
 
             //then
             //todo assert要简单明确，不要把两个合起来
-            assertTrue(parkingLotA.getUsed() == 5 && parkingLotB.getUsed() == 1);
+            assertEquals(1, parkingLotB.getUsed());
         }
         catch (ParkingLotException e){
             e.printStackTrace();
